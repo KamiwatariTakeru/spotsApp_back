@@ -49,12 +49,15 @@ group :development, :test do
 
   # ユニットテストツール
   gem 'rspec-rails', '~> 7.0'
+
+  gem 'factory_bot_rails'
 end
 
 group :development do
   gem 'listen', '~> 3.9'
   gem 'spring', '>= 4.2.1'
   gem 'spring-watcher-listen', '~> 2.1.0'
+  gem 'spring-commands-rspec'
 end
 
 

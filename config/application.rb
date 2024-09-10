@@ -45,5 +45,16 @@ module App
     config.active_record.encryption.primary_key = ENV['PRIMARY_KEY']
     config.active_record.encryption.deterministic_key = ENV['DETERMINISTIC_KEY']
     config.active_record.encryption.key_derivation_salt = ENV['KEY_DERIVATION_SALT']
+
+    # RSpec の設定を追加
+    config.generators do |g|
+      g.assets false
+      g.helper     false
+      g.test_framework :rspec,
+        fixtures: false, # テストDBにレコードを作るfixtureの作成をスキップ(FactoryBotを使用するため)
+        view_specs: false, # ビューファイル用のスペックを作成しない
+        helper_specs: false, # ヘルパーファイル用のスペックを作成しない
+        routing_specs: false # routes.rb用のスペックファイル作成しない
+    end
   end
 end

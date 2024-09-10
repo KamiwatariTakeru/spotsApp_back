@@ -74,7 +74,7 @@ class SpotsController < ApplicationController
   end
 
   def evaluate
-    evaluation = Evaluation.find_by(user_id: params[:user_id], spot_id: params[:spot_id])
+    evaluation = Evaluation.find_by(user_id: params[:user_id], spot_id: params[:id])
     unless evaluation
       return render json: { error: "評価レコードが存在しません" }, status: :bad_request
     end
@@ -91,7 +91,7 @@ class SpotsController < ApplicationController
       render json: evaluation.errors, status: :internal_server_error
     end
 
-    evaluationsCount = Evaluation.where(spot_id: params[:spot_id]).count
+    evaluationsCount = Evaluation.where(spot_id: params[:id]).count
 
     # Infinityを防ぐため、stars_sumが0であるかどうかを確認し、ゼロでない場合のみ平均値を計算する
     if @spot.stars_sum > 0
@@ -110,7 +110,6 @@ class SpotsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_spot
-      puts params[:id]
       @spot = Spot.find(params[:id])
       unless @spot
       end

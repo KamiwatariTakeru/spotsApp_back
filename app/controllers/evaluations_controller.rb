@@ -9,13 +9,13 @@ class EvaluationsController < ApplicationController
       evaluation.starsAmount = 0
 
       if evaluation.save
-        redirect_to evaluate_spot_path(user_id: evaluation.user_id, spot_id: params[:spot_id], stars_amount: params[:starsAmount])
+        redirect_to evaluate_spot_path(user_id: evaluation.user_id, id: params[:spot_id], stars_amount: params[:starsAmount])
       else
         render json: evaluation.errors, status: :internal_server_error
       end
     # すでにユーザーがその投稿を評価していた場合（更新）
     else
-        redirect_to evaluate_spot_path(user_id: evaluation.user_id, spot_id: params[:spot_id], stars_amount: params[:starsAmount])
+        redirect_to evaluate_spot_path(user_id: evaluation.user_id, id: params[:spot_id], stars_amount: params[:starsAmount])
     end
   end
 
