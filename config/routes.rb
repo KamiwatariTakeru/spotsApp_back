@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :likes
-  # resources :auth_infos
+  resources :auth_infos
   # resources :evaluations
   resources :users
   resources :spots

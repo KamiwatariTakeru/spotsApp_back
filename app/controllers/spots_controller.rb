@@ -1,5 +1,5 @@
 class SpotsController < ApplicationController
-  before_action :set_spot, only: [:show, :update, :destroy, :evaluate]
+  before_action :set_spot, only: [:show, :evaluate]
 
   # GET /spots
   def index
@@ -25,8 +25,9 @@ class SpotsController < ApplicationController
 
       coordinate = geocode_address(params[:address])
 
-      if coordinate.nil?
+      if coordinate.nil? || coordinate[:lat].nil? || coordinate[:lng].nil?
         render json: { error: "Address geocoding failed" }, status: :unprocessable_entity
+        return
       end
 
       @spot.latitude = coordinate[:lat]
@@ -40,18 +41,18 @@ class SpotsController < ApplicationController
   end
 
   # PATCH/PUT /spots/1
-  def update
-    if @spot.update(spot_params)
-      render json: @spot
-    else
-      render json: @spot.errors, status: :internal_server_error
-    end
-  end
+  # def update
+  #  if @spot.update(spot_params)
+  #    render json: @spot
+  #  else
+  #    render json: @spot.errors, status: :internal_server_error
+  #  end
+  # end
 
   # DELETE /spots/1
-  def destroy
-    @spot.destroy
-  end
+  # def destroy
+  #  @spot.destroy
+  # end
 
   def search
     # パラメーターから検索ワードを取得
